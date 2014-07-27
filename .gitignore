@@ -1,0 +1,5 @@
+#git ignore file
+
+target/
+.classpath
+.project
