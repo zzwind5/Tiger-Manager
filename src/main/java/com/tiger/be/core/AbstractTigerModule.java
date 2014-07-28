@@ -9,8 +9,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 
-import com.tiger.be.event.BaseEvent;
-import com.tiger.be.util.TigerUtils;
+import com.tiger.event.BaseEvent;
+import com.tiger.util.TigerUtils;
 
 public abstract class AbstractTigerModule implements TigerModulelInt {
 

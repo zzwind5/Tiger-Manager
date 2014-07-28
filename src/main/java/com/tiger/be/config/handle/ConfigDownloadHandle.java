@@ -1,8 +1,8 @@
 package com.tiger.be.config.handle;
 
 import com.tiger.be.core.AbstractTigerHandle;
-import com.tiger.be.event.config.ConfigDownloadEvent;
-import com.tiger.be.event.config.ConfigDownloadResult;
+import com.tiger.event.config.ConfigDownloadEvent;
+import com.tiger.event.config.ConfigDownloadResult;
 
 public class ConfigDownloadHandle extends AbstractTigerHandle<ConfigDownloadEvent> {
 	

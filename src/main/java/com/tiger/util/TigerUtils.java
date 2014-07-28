@@ -1,4 +1,4 @@
-package com.tiger.be.util;
+package com.tiger.util;
 
 public class TigerUtils {
 

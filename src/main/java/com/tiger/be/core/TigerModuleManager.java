@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.tiger.be.config.ConfigModuleImpl;
-import com.tiger.be.event.BaseEvent;
+import com.tiger.event.BaseEvent;
 
 public class TigerModuleManager {
 

@@ -1,7 +1,7 @@
-package com.tiger.be.util;
+package com.tiger.util;
 
 import com.tiger.be.core.TigerModuleManager;
-import com.tiger.be.event.BaseEvent;
+import com.tiger.event.BaseEvent;
 
 public class EventUtils {
 

@@ -1,6 +1,6 @@
 package com.tiger.be.core;
 
-import com.tiger.be.event.BaseEvent;
+import com.tiger.event.BaseEvent;
 
 public interface TigerModulelInt {
 	

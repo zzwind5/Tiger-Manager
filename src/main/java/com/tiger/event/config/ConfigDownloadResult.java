@@ -1,6 +1,6 @@
-package com.tiger.be.event.config;
+package com.tiger.event.config;
 
-import com.tiger.be.event.EventResult;
+import com.tiger.event.EventResult;
 
 public class ConfigDownloadResult extends EventResult {
 	

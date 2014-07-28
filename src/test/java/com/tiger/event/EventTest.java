@@ -1,10 +1,10 @@
 package com.tiger.event;
 
 import com.tiger.be.core.TigerModuleManager;
-import com.tiger.be.event.config.ConfigDownloadEvent;
-import com.tiger.be.event.config.ConfigDownloadResult;
-import com.tiger.be.event.config.ImageDownloadEvent;
-import com.tiger.be.util.EventUtils;
+import com.tiger.event.config.ConfigDownloadEvent;
+import com.tiger.event.config.ConfigDownloadResult;
+import com.tiger.event.config.ImageDownloadEvent;
+import com.tiger.util.EventUtils;
 
 public class EventTest {
 

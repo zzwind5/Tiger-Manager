@@ -1,6 +1,6 @@
-package com.tiger.be.event.config;
+package com.tiger.event.config;
 
-import com.tiger.be.event.BaseEvent;
+import com.tiger.event.BaseEvent;
 
 public class ConfigDownloadEvent extends BaseEvent {
 

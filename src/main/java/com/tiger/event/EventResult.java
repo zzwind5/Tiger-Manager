@@ -1,4 +1,4 @@
-package com.tiger.be.event;
+package com.tiger.event;
 
 import java.io.Serializable;
 

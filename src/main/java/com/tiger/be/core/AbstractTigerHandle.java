@@ -4,7 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.concurrent.BlockingQueue;
 
-import com.tiger.be.event.BaseEvent;
+import com.tiger.event.BaseEvent;
 
 public abstract class AbstractTigerHandle<T extends BaseEvent> implements TigerHandleInt<T> {
 	
