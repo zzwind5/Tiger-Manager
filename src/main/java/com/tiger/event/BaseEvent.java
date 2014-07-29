@@ -2,7 +2,7 @@ package com.tiger.event;
 
 import java.io.Serializable;
 
-import com.tiger.be.core.ModuleType;
+import com.tiger.be.core.TigerModule.ModuleType;
 
 public class BaseEvent implements Serializable {
 

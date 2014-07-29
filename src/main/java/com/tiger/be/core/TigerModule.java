@@ -2,9 +2,11 @@ package com.tiger.be.core;
 
 import com.tiger.event.BaseEvent;
 
-public interface TigerModulelInt {
+public interface TigerModule {
 	
-//	void init();
+	enum ModuleType {
+		config, log, report, capwap
+	}
 	
 	void registerHandles();
 	

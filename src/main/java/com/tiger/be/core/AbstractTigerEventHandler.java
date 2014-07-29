@@ -6,13 +6,13 @@ import java.util.concurrent.BlockingQueue;
 
 import com.tiger.event.BaseEvent;
 
-public abstract class AbstractTigerHandle<T extends BaseEvent> implements TigerHandleInt<T> {
+public abstract class AbstractTigerEventHandler<T extends BaseEvent> implements TigerEventHandler<T> {
 	
 	private BlockingQueue<BaseEvent> queue;
 	
 	protected Class<?> tClass;
 	
-	public AbstractTigerHandle() {
+	public AbstractTigerEventHandler() {
 		Type genType = this.getClass().getGenericSuperclass();
 		Type[] params = ((ParameterizedType)genType).getActualTypeArguments();
 		tClass = (Class<?>)params[0];

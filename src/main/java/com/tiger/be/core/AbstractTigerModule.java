@@ -12,11 +12,11 @@ import java.util.concurrent.LinkedBlockingDeque;
 import com.tiger.event.BaseEvent;
 import com.tiger.util.TigerUtils;
 
-public abstract class AbstractTigerModule implements TigerModulelInt {
+public abstract class AbstractTigerModule implements TigerModule {
 
-	private Map<Class<TigerHandleInt<BaseEvent>>, Integer> handleClass = new ConcurrentHashMap<Class<TigerHandleInt<BaseEvent>>, Integer>();
+	private Map<Class<TigerEventHandler<BaseEvent>>, Integer> handleClass = new ConcurrentHashMap<Class<TigerEventHandler<BaseEvent>>, Integer>();
 
-	private List<Entry<TigerHandleInt<BaseEvent>, BlockingQueue<BaseEvent>>> handleQueues = new ArrayList<Entry<TigerHandleInt<BaseEvent>, BlockingQueue<BaseEvent>>>();
+	private List<Entry<TigerEventHandler<BaseEvent>, BlockingQueue<BaseEvent>>> handleQueues = new ArrayList<Entry<TigerEventHandler<BaseEvent>, BlockingQueue<BaseEvent>>>();
 
 	private List<Thread> handleThreads = new ArrayList<Thread>();
 
@@ -26,21 +26,21 @@ public abstract class AbstractTigerModule implements TigerModulelInt {
 	}
 
 	private void init() {
-		for (Entry<Class<TigerHandleInt<BaseEvent>>, Integer> entry : handleClass.entrySet()) {
-			Class<TigerHandleInt<BaseEvent>> handleClass = entry.getKey();
+		for (Entry<Class<TigerEventHandler<BaseEvent>>, Integer> entry : handleClass.entrySet()) {
+			Class<TigerEventHandler<BaseEvent>> handleClass = entry.getKey();
 			int threadCounts = entry.getValue();
-			TigerHandleInt<BaseEvent> instance = TigerUtils.createInstance(handleClass);
+			TigerEventHandler<BaseEvent> instance = TigerUtils.createInstance(handleClass);
 			if (instance == null || threadCounts < 1) {
 				continue;
 			}
 
 			// init handleQueues
 			BlockingQueue<BaseEvent> blockQueue = new LinkedBlockingDeque<BaseEvent>();
-			handleQueues.add(new SimpleEntry<TigerHandleInt<BaseEvent>, BlockingQueue<BaseEvent>>(instance, blockQueue));
+			handleQueues.add(new SimpleEntry<TigerEventHandler<BaseEvent>, BlockingQueue<BaseEvent>>(instance, blockQueue));
 
 			// init handleThreads
 			for (int i = 0; i < threadCounts; i++) {
-				TigerHandleInt<BaseEvent> instanceRun = TigerUtils
+				TigerEventHandler<BaseEvent> instanceRun = TigerUtils
 						.createInstance(handleClass);
 				instanceRun.setQueue(blockQueue);
 				handleThreads.add(new Thread(instanceRun));
@@ -54,7 +54,7 @@ public abstract class AbstractTigerModule implements TigerModulelInt {
 
 	@SuppressWarnings("unchecked")
 	public void registerHandle(Class<?> handle, int threadCount) {
-		handleClass.put((Class<TigerHandleInt<BaseEvent>>) handle, threadCount);
+		handleClass.put((Class<TigerEventHandler<BaseEvent>>) handle, threadCount);
 	}
 
 	public void start() {
@@ -64,7 +64,7 @@ public abstract class AbstractTigerModule implements TigerModulelInt {
 	}
 
 	public void addEvent(BaseEvent event) {
-		for (Entry<TigerHandleInt<BaseEvent>, BlockingQueue<BaseEvent>> entry : handleQueues) {
+		for (Entry<TigerEventHandler<BaseEvent>, BlockingQueue<BaseEvent>> entry : handleQueues) {
 			if (entry.getKey().isValid(event)) {
 				entry.getValue().offer(event);
 				if (!event.isBroadcast()) {

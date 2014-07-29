@@ -4,28 +4,31 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.tiger.be.config.ConfigModuleImpl;
+import com.tiger.be.core.TigerModule.ModuleType;
 import com.tiger.event.BaseEvent;
 
 public class TigerModuleManager {
-
-	private static TigerModuleManager instance = new TigerModuleManager();
 	
-	private Map<ModuleType, TigerModulelInt> moduleMaps = new ConcurrentHashMap<ModuleType, TigerModulelInt>();
-			
+	private Map<ModuleType, TigerModule> moduleMaps = new ConcurrentHashMap<ModuleType, TigerModule>();
+	
 	private TigerModuleManager() {
-		init();
+		registerModule();
 	}
 	
-	private void init(){
+	private void registerModule(){
 		moduleMaps.put(ModuleType.config, new ConfigModuleImpl());
 	}
 	
+	private static class TigerModuleManagerHolder {
+		private static TigerModuleManager instance = new TigerModuleManager();
+	}
+	
 	public static TigerModuleManager getInstance() {
-		return instance;
+		return TigerModuleManagerHolder.instance;
 	}
 
 	public void start() {
-		for(TigerModulelInt moduleIns : moduleMaps.values()) {
+		for(TigerModule moduleIns : moduleMaps.values()) {
 			moduleIns.start();
 		}
 	}
@@ -34,7 +37,7 @@ public class TigerModuleManager {
 		if(event.getToMod() != null) {
 			moduleMaps.get(event.getToMod()).addEvent(event);
 		}else {
-			for(TigerModulelInt moduleIns : moduleMaps.values()) {
+			for(TigerModule moduleIns : moduleMaps.values()) {
 				moduleIns.addEvent(event);
 			}
 		}

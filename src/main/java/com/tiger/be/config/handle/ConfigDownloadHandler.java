@@ -1,10 +1,10 @@
 package com.tiger.be.config.handle;
 
-import com.tiger.be.core.AbstractTigerHandle;
+import com.tiger.be.core.AbstractTigerEventHandler;
 import com.tiger.event.config.ConfigDownloadEvent;
 import com.tiger.event.config.ConfigDownloadResult;
 
-public class ConfigDownloadHandle extends AbstractTigerHandle<ConfigDownloadEvent> {
+public class ConfigDownloadHandler extends AbstractTigerEventHandler<ConfigDownloadEvent> {
 	
 	public void handle(ConfigDownloadEvent event) {
 		try {

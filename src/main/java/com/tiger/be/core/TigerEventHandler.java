@@ -4,7 +4,7 @@ import java.util.concurrent.BlockingQueue;
 
 import com.tiger.event.BaseEvent;
 
-public interface TigerHandleInt<T extends BaseEvent> extends Runnable {
+public interface TigerEventHandler<T extends BaseEvent> extends Runnable {
 	
 	boolean isValid(BaseEvent event);
 
