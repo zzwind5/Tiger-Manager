@@ -19,6 +19,8 @@ public abstract class AbstractTigerModule implements TigerModule {
 	private List<Entry<TigerEventHandler<BaseEvent>, BlockingQueue<BaseEvent>>> handleQueues = new ArrayList<Entry<TigerEventHandler<BaseEvent>, BlockingQueue<BaseEvent>>>();
 
 	private List<Thread> handleThreads = new ArrayList<Thread>();
+	
+	private boolean blnModuleStart;
 
 	public AbstractTigerModule() {
 		this.registerHandles();
@@ -40,8 +42,7 @@ public abstract class AbstractTigerModule implements TigerModule {
 
 			// init handleThreads
 			for (int i = 0; i < threadCounts; i++) {
-				TigerEventHandler<BaseEvent> instanceRun = TigerUtils
-						.createInstance(handleClass);
+				TigerEventHandler<BaseEvent> instanceRun = TigerUtils.createInstance(handleClass);
 				instanceRun.setQueue(blockQueue);
 				handleThreads.add(new Thread(instanceRun));
 			}
@@ -59,11 +60,24 @@ public abstract class AbstractTigerModule implements TigerModule {
 
 	public void start() {
 		for (Thread thread : handleThreads) {
-			thread.start();
+			if(!thread.isAlive()) {
+				thread.start();
+			}
+		}
+		blnModuleStart = true;
+	}
+	
+	public void stop() {
+		blnModuleStart = false;
+		for(Entry<TigerEventHandler<BaseEvent>, BlockingQueue<BaseEvent>> entry : handleQueues) {
+			entry.getValue().clear();
 		}
 	}
 
 	public void addEvent(BaseEvent event) {
+		if(!blnModuleStart) {
+			return;
+		}
 		for (Entry<TigerEventHandler<BaseEvent>, BlockingQueue<BaseEvent>> entry : handleQueues) {
 			if (entry.getKey().isValid(event)) {
 				entry.getValue().offer(event);

@@ -27,9 +27,15 @@ public class TigerModuleManager {
 		return TigerModuleManagerHolder.instance;
 	}
 
-	public void start() {
+	public void startAll() {
 		for(TigerModule moduleIns : moduleMaps.values()) {
 			moduleIns.start();
+		}
+	}
+	
+	public void stopAll() {
+		for(TigerModule moduleIns : moduleMaps.values()) {
+			moduleIns.stop();
 		}
 	}
 	

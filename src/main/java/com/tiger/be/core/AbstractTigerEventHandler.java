@@ -21,15 +21,17 @@ public abstract class AbstractTigerEventHandler<T extends BaseEvent> implements 
 	@SuppressWarnings("unchecked")
 	public void run() {
 		while(true) {
+			BaseEvent event = null;
 			try {
-				BaseEvent event = queue.take();
+				event = queue.take();
 				handle((T)event);
-				if(event.isSynEvent()) {
-					event.endWaiting();
-				}
 			} catch (Throwable t) {
 				// TODO Auto-generated catch block
 				t.printStackTrace();
+			} finally {
+				if(event != null && event.isSynEvent()) {
+					event.endWaiting();
+				}
 			}
 		}
 	}
